@@ -11,3 +11,67 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  height: 100vh;
+}
+
+.mainboard{
+  width: 30rem;
+  height: 30rem;
+  background-color: rebeccapurple;
+  margin-left: ;
+}
+
+.secondaryBoard{
+  background-color: greenyellow;
+  width: 15rem;
+  height: 15rem;
+  margin-left: 1rem;
+}
+
+.game{
+  
+  background-color: orange;   
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  
+}
+
+.boards{
+  display: flex;
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.banner{
+  margin: auto;
+  text-align: center;
+  color: black;
+  background-color: cyan;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+ }
+
+.topbanner{
+  margin-top: 0;
+  width: 10rem; 
+  border-radius: 0px 0px 10px 10px ;
+}
+.botbanner{
+  margin-bottom: 0;
+  font-size: 2em;
+  width: 20rem;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.tray{
+  background-color: peru;
+  width: 25rem;
+  height: 5rem;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+
