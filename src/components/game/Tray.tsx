@@ -2,22 +2,23 @@ import React from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useDrag } from 'react-dnd'
+import TrayTile from './TrayTile'
 
-const Tray = () => {
+const Tray = ({trayletters}:any) => {
   
   const tray = []
   for (let i = 0; i<7;i++){
     tray.push(
-      <div className='tile' key={i}/>
+      <TrayTile letter={trayletters[i]} key={i}/>
     )
   }
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    
     <div className='tray'>
       {tray}
     </div>
-    </DndProvider>
+    
   )
 }
 

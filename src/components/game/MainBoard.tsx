@@ -1,4 +1,7 @@
 import React from 'react'
+import Cell from './Cell';
+
+import Tile from './Tile';
 
 export interface MainBoardProps {
   letters : string[];
@@ -9,16 +12,9 @@ const MainBoard = ({letters, worms} : MainBoardProps) => {
   const rows = [];
   for(let i = 0; i<16; i++){
     const row = []
-    for (let j=0; j<16;j++){
-      const letter = []
-      if(letters[16*i+j]!=="."){
-        letter.push(letters[16 * i + j].toUpperCase())
-      }
-      
+    for (let j=0; j<16;j++){     
       row.push(
-        <div className='tile' key={j}>
-          {letter}
-        </div>
+        <Cell letter={letters[16*i+j]} key={16*i+j}/>
       )
       
     }

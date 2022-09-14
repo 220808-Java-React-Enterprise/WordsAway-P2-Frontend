@@ -4,7 +4,8 @@ import MainBoard from './game/MainBoard'
 import SecondaryBoard from './game/SecondaryBoard'
 import Tray from './game/Tray'
 import BottomBanner from './game/BottomBanner'
-
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const Game = () => {
   
@@ -94,8 +95,11 @@ const Game = () => {
         <div className='boards'>
             <MainBoard letters={board[0].letters} worms={board[0].worms} />
             <SecondaryBoard />
-        </div>        
-        <Tray/>
+        </div>
+          <DndProvider backend={HTML5Backend}>
+            <Tray trayletters={board[0].tray} />
+            </DndProvider>        
+        
         <BottomBanner name={board[0].user}/>
     </div>
   )
