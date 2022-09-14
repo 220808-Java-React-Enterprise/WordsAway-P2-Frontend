@@ -1,6 +1,10 @@
 import React from 'react'
 
-const TopBanner = ({name}) => {
+export interface TopBannerProps {
+  name : string;
+}
+
+const TopBanner = ({name} : TopBannerProps) => {
   return (
     <div className='banner topbanner'>{name}</div>
   )

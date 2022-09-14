@@ -1,8 +1,11 @@
 import React from 'react'
 
+export interface MainBoardProps {
+  letters : string[];
+  worms : string[];
+}
 
-
-const MainBoard = ({letters, worms}) => {
+const MainBoard = ({letters, worms} : MainBoardProps) => {
   const rows = [];
   for(let i = 0; i<16; i++){
     const row = []

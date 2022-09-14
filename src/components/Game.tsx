@@ -8,7 +8,7 @@ import BottomBanner from './game/BottomBanner'
 
 const Game = () => {
   
-    const [board, getboard] = useState([
+    const [board, setboard] = useState([
         {
             "user": "Player",
             "tray" : ["a","b","c","d","e","f","g"],

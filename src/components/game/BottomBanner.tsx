@@ -1,6 +1,10 @@
 import React from 'react'
 
-const BottomBanner = ({name}) => {
+export interface BottomBannerProps {
+  name : string;
+}
+
+const BottomBanner = ({name} : BottomBannerProps) => {
   return (
     <div className='banner botbanner'>{name}</div>
   )
