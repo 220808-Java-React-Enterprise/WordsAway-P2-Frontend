@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import WORDS_API from '../utils/ApiConfig';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import CryptoJS from 'crypto-js';
   
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [salt, setSalt] = useState("");
 
     function updateUsername(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -15,29 +15,31 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
-    function signup(event: React.FormEvent<HTMLFormElement>) {
+    async function login(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        WORDS_API.get("salt").then((response: AxiosResponse) => {
-            setSalt(response.data);
+        let salt = "";
+        await WORDS_API.get("salt", {params: {username: username}}).then((response: AxiosResponse) => {
+            salt = response.data;
         });
-        // let hash = createHmac('sha512', salt);
-        // hash.update(password);
-        // let value = hash.digest('hex');
+        let hash = CryptoJS.HmacSHA512(password, salt).toString();
+        // let hash = bcrypt.hash(password, salt);
+//        let hash = createHmac('sha512', salt);
+//        hash.update(password);
+//        let value = hash.digest('hex');
         WORDS_API.post("login", {
             username: username,
-            password: password
-        }, {
-            headers: {'Access-Control-Expose-Headers': 'Authoriziation'}
+            password: hash
         }).then((response)=>{
-            alert(Object.keys(response.headers));
-//            sessionStorage.setItem("token", response.headers);
-            //window.location.href = "game";
+            alert(response.headers.authorization);
+            sessionStorage.setItem("token", response.headers.authorization);
+            axios.defaults.headers.common.Authorization = response.headers.authorization;
+            window.location.href = "/";
         })
         .catch((response)=>alert(response));
     }
     return (
     <div>
-        <form onSubmit={signup}>
+        <form onSubmit={login}>
             <input type="text" placeholder='Username' onChange={updateUsername} /><br />
             <input type="password" placeholder='Password' onChange={updatePassword} /><br />
             <button type="submit">Login</button>

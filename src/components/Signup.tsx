@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import WORDS_API from '../utils/ApiConfig';
 import { AxiosResponse } from 'axios';
-import { createHmac } from 'crypto';
+import CryptoJS from 'crypto-js';
   
 const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
-    const [salt, setSalt] = useState("");
 
     function updateUsername(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value);
@@ -26,30 +25,29 @@ const Signup = () => {
         setConfirm(event.target.value);
     }
 
-    function signup(event: React.FormEvent<HTMLFormElement>) {
+    async function signup(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        WORDS_API.get("salt").then((response: AxiosResponse) => {
-            setSalt(response.data);
+        let salt = "";
+        await WORDS_API.get("salt").then((response: AxiosResponse) => {
+            salt = response.data;
         });
         if (password !== confirm) {alert("Passwords don't match"); return; }
-        // let hash = createHmac('sha512', salt);
-        // hash.update(password);
-        // let value = hash.digest('hex');
+        let hash = CryptoJS.HmacSHA512(password, salt).toString();
         WORDS_API.post("signup", {
             username: username,
             email: email,
             salt: salt,
-            password: password
+            password: hash
         }).then(()=>window.location.href = "login")
         .catch(()=>alert("Error"));
     }
     return (
     <div>
         <form onSubmit={signup}>
-            <input type="text" placeholder='Username' onChange={updateUsername} /><br />
-            <input type="text" placeholder='Email' onChange={updateEmail} /><br />
-            <input type="password" placeholder='Password' onChange={updatePassword} /><br />
-            <input type="password" placeholder='Confirm Password' onChange={updateConfirm} /><br />
+            <input type="text" placeholder='Username' autoComplete='username' onChange={updateUsername} /><br />
+            <input type="text" placeholder='Email' autoComplete='email' onChange={updateEmail} /><br />
+            <input type="password" placeholder='Password' autoComplete='new-password' onChange={updatePassword} /><br />
+            <input type="password" placeholder='Confirm Password' autoComplete='new-password' onChange={updateConfirm} /><br />
             <button type="submit">Signup</button>
         </form>
     </div>)
