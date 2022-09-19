@@ -22,10 +22,6 @@ const Login = () => {
             salt = response.data;
         });
         let hash = CryptoJS.HmacSHA512(password, salt).toString();
-        // let hash = bcrypt.hash(password, salt);
-//        let hash = createHmac('sha512', salt);
-//        hash.update(password);
-//        let value = hash.digest('hex');
         WORDS_API.post("login", {
             username: username,
             password: hash

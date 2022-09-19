@@ -1,19 +1,23 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const WORDS_API = axios.create({
-    baseURL: "http://localhost:8080/wordsaway",
-    headers: {
-        "Content-type": "application/json"
-    }
+  baseURL: "http://localhost:8080/wordsaway",
+  headers: {
+    "Content-type": "application/json"
+  }
 })
 
-export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-    let token = sessionStorage.getItem("token")
-    alert(token);
-    if (config !== undefined && config.headers !== undefined && token !== null) {
-        config.headers['Authentication'] = token;
+WORDS_API.interceptors.request.use(
+  function(request:AxiosRequestConfig) {
+    if (request !== undefined && request.headers !== undefined) {
+      let token = sessionStorage.getItem("token");
+      if (token !== null) request.headers['Authorization'] = token;
     }
-    return config;
-}
+    return request;
+  },
+  error => {
+      return Promise.reject(error);
+  }
+);
 
 export default WORDS_API;
