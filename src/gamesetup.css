@@ -3,7 +3,10 @@
     width: 30rem;
     height: 20rem;
     display: flex;
-    border-radius: 2rem;
+    border-radius: 1rem;
+    border-style: solid;
+    border-color: rgb(100,50,50);
+    border-width: .5rem;
 
 }
 
@@ -13,6 +16,9 @@
     height: 17rem;
     margin: auto;
     border-radius: 1.5rem;
+    display: flex;
+    
+    align-content: center;
 }
 
 
@@ -20,5 +26,78 @@
     background-color:brown;
     display: flex;
     margin: auto;
-    
+
+}
+
+.worm{
+    border-style: solid;
+}
+
+.worm-v{
+    border-radius: 1rem;
+}
+
+.worma-v{
+    width: 2rem;
+    height: calc(2.5rem*5);
+    background-color: aqua;
+    margin: auto;
+}
+.wormb-v{
+    width: 2rem;
+        height: calc(2.5rem*4);
+        background-color: greenyellow;
+        margin: auto;
+}
+.wormc-v{
+    width: 2rem;
+        height: calc(2.5rem*3);
+        background-color:coral;
+        margin: auto;
+}
+.wormd-v{
+    width: 2rem;
+        height: calc(2.5rem*3);
+        background-color:orange;
+        margin: auto;
+}
+.worms-v{
+    width: 2rem;
+        height: calc(2.5rem*2);
+        background-color: brown;
+        margin: auto;
+}
+.worma-h {
+    width: 2rem;
+    height: calc(2.5rem*5);
+    background-color: aqua;
+    margin: auto;
+}
+
+.wormb-h {
+    width: 2rem;
+    height: calc(2.5rem*4);
+    background-color: greenyellow;
+    margin: auto;
+}
+
+.wormc-h {
+    width: 2rem;
+    height: calc(2.5rem*3);
+    background-color: coral;
+    margin: auto;
+}
+
+.wormd-h {
+    width: 2rem;
+    height: calc(2.5rem*3);
+    background-color: orange;
+    margin: auto;
+}
+
+.worms-h {
+    width: 2rem;
+    height: calc(2.5rem*2);
+    background-color: brown;
+    margin: auto;
 }
