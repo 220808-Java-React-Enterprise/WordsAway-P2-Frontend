@@ -119,7 +119,7 @@ const Game = () => {
         sessionStorage.setItem('board', JSON.stringify(board))
         sessionStorage.setItem('move', JSON.stringify(move))
         sessionStorage.setItem('tray', JSON.stringify(tray))
-    },[])
+    })
 
     function updateGame(inOb:string, outOb:string, inN:number, outN:number, letter:string){
         console.log("Letter: " + letter)
@@ -132,23 +132,54 @@ const Game = () => {
             OOut = JSON.parse(sessionStorage.tray)[0].value
             OIn = JSON.parse(sessionStorage.move)[0].move
 
-            console.log(OOut)
-            console.log(OIn)
-
             for (let i = 0; i< OOut.length; i++) {
                 if (i==outN){NOut.push(".")}else{NOut.push(OOut[i])}
             }
             for (let i = 0; i < OIn.length; i++) {
                 if (i == inN) {NIn.push(letter)} else {NIn.push(OIn[i])}
             }
-            console.log(NOut)
-            setTray([{"value": NOut}])
-            setMove([{"move": NIn}])
-            sessionStorage.setItem('move', JSON.stringify([{ "move": NIn }]))
-            sessionStorage.setItem('tray', JSON.stringify([{ "value": NOut }]))
+            setTray([{ "value": NOut }])
+            setMove([{ "move": NIn }])
+            
+        } else if (outOb == 'movetile' && inOb == 'boardtile'){
+            
+            OIn = JSON.parse(sessionStorage.move)[0].move
+
+            for (let i = 0; i < OIn.length; i++) {
+                if (i == inN) { NIn.push(letter) 
+                } else if (i == outN) { NIn.push(".") 
+                }else { NIn.push(OIn[i]) }
+            }
+            setMove([{ "move": NIn }])
+        } else if (outOb == 'movetile' && inOb == 'emptytraytile'){
+            OIn = JSON.parse(sessionStorage.tray)[0].value
+            OOut = JSON.parse(sessionStorage.move)[0].move
+
+            for (let i = 0; i < OOut.length; i++) {
+                if (i == outN) { NOut.push(".") } else { NOut.push(OOut[i]) }
+            }
+            for (let i = 0; i < OIn.length; i++) {
+                if (i == inN) { NIn.push(letter) } else { NIn.push(OIn[i]) }
+            }
+            setTray([{ "value": NIn }])
+            setMove([{ "move": NOut }])
+        } else if (outOb == 'traytile' && inOb == 'emptytraytile') {
+
+            OIn = JSON.parse(sessionStorage.tray)[0].value
+
+            for (let i = 0; i < OIn.length; i++) {
+                if (i == inN) {
+                    NIn.push(letter)
+                } else if (i == outN) {
+                    NIn.push(".")
+                } else { NIn.push(OIn[i]) }
+            }
+            setTray([{ "value": NIn }])
         }
 
-        // changing incoming cells
+        
+
+   
 
 
 
@@ -162,7 +193,7 @@ const Game = () => {
         <DndProvider backend={HTML5Backend}>
             <TopBanner name={users[1].username}/>
             <div className='boards'>
-                <MainBoard updateGame={updateGame} letters={board[0].letters} />
+                <MainBoard moves={move[0].move} updateGame={updateGame} letters={board[0].letters} />
                 <SecondaryBoard />
             </div>
             

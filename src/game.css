@@ -156,3 +156,6 @@ code {
     height: 4rem;
     width: 4rem;
 }
+.move{
+    background-color: red;
+}

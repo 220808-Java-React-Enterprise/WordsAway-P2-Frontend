@@ -9,11 +9,18 @@ const Tray = ({trayletters, updateGame}:{trayletters:any, updateGame:Function}) 
   
   const tray = []
   for (let i = 0; i<7;i++){
-    tray.push(
-      // <Cell letter={trayletters[i]} key={i} />
-      <Cell updateGame={updateGame} position={i} type='traytile' letter={trayletters[i]} key={i} />
-      // <TrayTile letter={trayletters[i]} key={i}/>
-    )
+    if (trayletters[i] != ".") {
+      tray.push(
+
+        <Cell updateGame={updateGame} position={i} type='traytile' letter={trayletters[i]} key={i} />
+      )
+    }else{
+      tray.push(
+
+        <Cell updateGame={updateGame} position={i} type='emptytraytile' letter={trayletters[i]} key={i} />
+      )
+    }
+    
   }
 
   return (
