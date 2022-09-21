@@ -31,10 +31,27 @@
 
 .worm{
     border-style: solid;
+    height: 2rem;
+    width: 2rem;
+    margin: auto;
+    border-radius: .75rem;
+    border-width: 2px;
 }
 
-.worm-v{
-    border-radius: 1rem;
+.worma{
+    background-color: aqua;
+}
+.wormb {
+    background-color: greenyellow;
+}
+.wormc {
+    background-color: coral;
+}
+.wormd {
+    background-color: orange;
+}
+.worms {
+    background-color: brown;
 }
 
 .worma-v{
@@ -66,38 +83,4 @@
         height: calc(2.5rem*2);
         background-color: brown;
         margin: auto;
-}
-.worma-h {
-    width: 2rem;
-    height: calc(2.5rem*5);
-    background-color: aqua;
-    margin: auto;
-}
-
-.wormb-h {
-    width: 2rem;
-    height: calc(2.5rem*4);
-    background-color: greenyellow;
-    margin: auto;
-}
-
-.wormc-h {
-    width: 2rem;
-    height: calc(2.5rem*3);
-    background-color: coral;
-    margin: auto;
-}
-
-.wormd-h {
-    width: 2rem;
-    height: calc(2.5rem*3);
-    background-color: orange;
-    margin: auto;
-}
-
-.worms-h {
-    width: 2rem;
-    height: calc(2.5rem*2);
-    background-color: brown;
-    margin: auto;
 }
