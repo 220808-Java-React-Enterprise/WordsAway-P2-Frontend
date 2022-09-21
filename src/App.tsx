@@ -4,7 +4,8 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Game from "./components/Game";
 import Home from "./components/Home";
-import GameSetup from "./components/GameSetup";
+import Lobby from "./components/Lobby";
+
 
 function App() {
     return (
@@ -15,10 +16,10 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Login />} />
                     <Route path="/" element={<Home />} />
-                    {/* <Route path="/lobby" element={<Lobby />} />
-                        <Route path="/setup" element={<Setup />} /> */}
+                    <Route path="/lobby" element={<Lobby />} />
+                    {/* <Route path="/setup" element={<Setup />} /> */}
                     <Route path="/game" element={<Game />} />
-                    <Route path="/gamesetup" element={<GameSetup />} />
+                    
                 </Routes>
             </BrowserRouter>
         </div>
