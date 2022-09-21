@@ -29,7 +29,7 @@ const Login = () => {
             alert(response.headers.authorization);
             sessionStorage.setItem("token", response.headers.authorization);
             axios.defaults.headers.common.Authorization = response.headers.authorization;
-            window.location.href = "/";
+            window.location.href = "/lobby";
         })
         .catch((response)=>alert(response));
     }
