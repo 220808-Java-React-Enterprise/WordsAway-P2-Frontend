@@ -20,16 +20,16 @@ const Lobby = () => {
         await WORDS_API.post("makeGame", {
             username: username
         }).then((response)=>{
-            alert("Game ID: " + response.data);
-            sessionStorage.setItem("game_id", response.data);
+            alert("Board ID: " + response.data);
+            sessionStorage.setItem("board_id", response.data);
             window.location.href = "/game";
         })
         .catch((response)=>alert(response));
     }
 
-    function continueGame(game_id: string){
-        alert("Game ID: " + game_id);
-        sessionStorage.setItem("game_id", game_id);
+    function continueGame(board_id: string){
+        alert("Board ID: " + board_id);
+        sessionStorage.setItem("board_id", board_id);
         window.location.href = "/game";
     }
 
@@ -50,9 +50,9 @@ const Lobby = () => {
                     <td>{user.username}</td>
                     <td>{user.elo}</td>
                     <td>{
-                        user.game_id == null ? 
+                        user.board_id == null ? 
                             <button onClick={() => startGame(user.username)}>Challenge!</button> : 
-                            <button onClick={() => continueGame(user.game_id)}>Continue!</button>
+                            <button onClick={() => continueGame(user.board_id)}>Continue!</button>
                     }</td>
                 </tr>
             )}
