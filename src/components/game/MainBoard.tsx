@@ -8,14 +8,28 @@ export interface MainBoardProps {
   // worms : string[];
   updateGame: Function;
   moves: string[]
+  hits: string[]
 }
 
-const MainBoard = ({letters, updateGame, moves} : MainBoardProps) => {
+const MainBoard = ({letters, updateGame, moves, hits} : MainBoardProps) => {
   const rows = [];
   for(let i = 0; i<16; i++){
     const row = []
     for (let j=0; j<16;j++){
-      if (moves[16 * i + j]!='.'){
+      if (hits[16 * i + j] !='.'){
+        if (hits[16 * i + j] == 'h'){
+          row.push(
+            <Cell updateGame={updateGame} position={16 * i + j} type='hitcell' letter={letters[16 * i + j]} key={16 * i + j} />
+          )
+        } else if (hits[16 * i + j] == 'm'){
+          
+          row.push(
+            <Cell updateGame={updateGame} position={16 * i + j} type='misscell' letter={moves[16 * i + j]} key={16 * i + j} />
+          )
+        }
+      }
+
+      else if (moves[16 * i + j]!='.'){
         row.push(
         <Cell updateGame={updateGame} position={16 * i + j} type='movetile' letter={moves[16 * i + j]} key={16 * i + j} />
         )

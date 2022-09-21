@@ -22,6 +22,10 @@ const Tile = ({type, tileletter, position}:{type:string, tileletter:string, posi
       return(<div ref={drag} className='tile'>{tileletter.toUpperCase()}</div>)
     }else if (type == 'movetile'){
       return(<div ref={drag} className='tile move'>{tileletter.toUpperCase()}</div>)
+    } else if (type == 'hitcell') {
+      return (<div ref={drag} className='tile hit'>{tileletter.toUpperCase()}</div>)
+    } else if (type == 'bombtile'){
+      return (<div className='tile miss bomb'>{tileletter.toUpperCase()}</div>)
     }
   }
 
