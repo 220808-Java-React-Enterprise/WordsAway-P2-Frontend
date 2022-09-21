@@ -5,20 +5,24 @@ import WORDS_API from '../utils/ApiConfig';
 
 const Lobby = () => {
     const [users, setUsers] = useState<User[]>([]);
-    useEffect(() => {
-        WORDS_API.get("/getOpponents").then((response: AxiosResponse<User[]>) => {
+    async function getOpponents() {
+        await WORDS_API.get("/getOpponents").then((response: AxiosResponse<User[]>) => {
             console.log(response.data);
             setUsers(response.data);
         })
         .catch(() => window.location.href = "/login");
+    }
+    useEffect(() => {
+        getOpponents();
     }, []);
     
     async function startGame(username: string) {
-        WORDS_API.post("makeGame", {
+        await WORDS_API.post("makeGame", {
             username: username
         }).then((response)=>{
             alert("Game ID: " + response.data);
-            window.location.href = "/setup";
+            sessionStorage.setItem("game_id", response.data);
+            window.location.href = "/game";
         })
         .catch((response)=>alert(response));
     }
