@@ -4,7 +4,7 @@ import { useDrag } from 'react-dnd'
 const Tile = ({type, tileletter, position}:{type:string, tileletter:string, position:number}) => {
 
   var tiletype = 'none'
-  if (type == 'movetile' || type == 'traytile') {
+  if (type === 'movetile' || type === 'traytile') {
     tiletype = 'moveable'
   }
 
@@ -16,15 +16,16 @@ const Tile = ({type, tileletter, position}:{type:string, tileletter:string, posi
     })
   }))
   function placetile() {
-    if (type == 'boardtile') {
+    if (!tileletter) return(<div />)
+    if (type === 'boardtile') {
       return(<div  className='tile'>{tileletter.toUpperCase()}</div>)
-    }else if (type == 'traytile'){      
+    }else if (type === 'traytile'){      
       return(<div ref={drag} className='tile'>{tileletter.toUpperCase()}</div>)
-    }else if (type == 'movetile'){
+    }else if (type === 'movetile'){
       return(<div ref={drag} className='tile move'>{tileletter.toUpperCase()}</div>)
-    } else if (type == 'hitcell') {
+    } else if (type === 'hitcell') {
       return (<div ref={drag} className='tile hit'>{tileletter.toUpperCase()}</div>)
-    } else if (type == 'bombtile'){
+    } else if (type === 'bombtile'){
       return (<div className='tile miss bomb'>{tileletter.toUpperCase()}</div>)
     }
   }
@@ -36,4 +37,4 @@ const Tile = ({type, tileletter, position}:{type:string, tileletter:string, posi
   )
 }
 
-export default Tile
+export default Tile;
