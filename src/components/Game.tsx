@@ -37,15 +37,6 @@ const Game = () => {
         ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".",
         ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."
     ]
-    // Read SS
-
-    // check if empty and redirect to lobby
-
-    //API Get Board
-
-
-    //Setup Variables
-//    const [game, setGame] = useState<Board>(DefaultBoard)
 
     const [users, setUsers] = useState([
         {"username": "_"},
@@ -268,7 +259,7 @@ const Game = () => {
                   </div>
                   <div className='rightboard'> 
                     <SecondaryBoard worms={worms[1].worms} />
-                    <FireballCounter/>
+                    <FireballCounter count={3}/>
                     <FireballLaunch isActive={fireactive} activate={activateFire}/>
                     <div className='movebar'>
                         <MakeMove makeMove={makeMove}/>

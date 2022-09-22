@@ -230,9 +230,13 @@ code {
 }
 
 .fireactive{
+    margin-top: 1.5rem;
+    margin-left: 3rem;
     width: 3rem;
     height: 3rem;
     background-color: red;
+    border-style: solid;
+    border-color:black;
     border-radius: 50%;
 }
 
