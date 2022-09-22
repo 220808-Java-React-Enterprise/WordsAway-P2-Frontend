@@ -34,13 +34,21 @@ const Login = () => {
         .catch((response)=>alert(response));
     }
     return (
-    <div>
-        <form onSubmit={login}>
-            <input type="text" placeholder='Username' onChange={updateUsername} /><br />
-            <input type="password" placeholder='Password' onChange={updatePassword} /><br />
-            <button type="submit">Login</button>
-        </form>
-    </div>)
+        <>
+        <div className='logincontainer'>
+        <div className='title'>
+            <div>WORDS AWAY</div>
+        </div>
+            
+            <div className='floating'>
+                <form className='form' onSubmit={login}>
+                    <input type="text" placeholder='Username' onChange={updateUsername} /><br />
+                    <input type="password" placeholder='Password' onChange={updatePassword} /><br />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+        </>)
 }
 
 export default Login

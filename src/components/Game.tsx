@@ -12,33 +12,22 @@ import FireballCounter from './game/FireballCounter'
 import WORDS_API from '../utils/ApiConfig'
 import axios, { AxiosResponse } from 'axios';
 
-
+// 
 
 const Game = () => {
     // Read SS
 
-    // async function getGame() {
-    //     await WORDS_API.get("/getGame").then((response: AxiosResponse<Game[]>) => {
-    //         console.log(response.data);
-    //         setUsers(response.data);
-    //     })
-    //         .catch(() => window.location.href = "/??????????");
-    // }
-    // useEffect(() => {
-    //     getGame();
-    // }, []);
     // check if empty and redirect to lobby
 
     //API Get Board
 
 
-    //Setup Variables
+    //Setup Variables   
+
     const [game, setGame] = useState({
-        // letters
-        // worms
-        // fireballs
-        // opponent
-        // tray
+        // "active":false,
+        // "fireballs": 
+        
     })
 
     const [users, setUsers] = useState([
