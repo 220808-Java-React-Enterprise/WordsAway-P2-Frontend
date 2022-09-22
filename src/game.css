@@ -156,7 +156,7 @@ code {
 
 .miss{
     background-color: black;
-    color: red;
+    /* color: red; */
 }
 
 .hit {
@@ -266,5 +266,28 @@ code {
 
 .center{
     margin: auto;
+}
+
+.swaptray{
+    background-color: green;
+        width: 10rem;
+        height: 5rem;
+        border-radius: 1rem;
+        margin-bottom: 0;
+        font-size: 1.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin: .5rem;
+        margin-left: 2rem;
+        -moz-box-shadow: 10px 10px 16px #000000;
+        -webkit-box-shadow: 10px 10px 16px #000000;
+        box-shadow: 10px 10px 16px #000000;
+        margin-left: 0;
+}
+
+
+.movebar{
+    display: flex;
 }
 

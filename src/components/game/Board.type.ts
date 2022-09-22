@@ -4,6 +4,7 @@ export type Board = {
   tray: string;
   opponent: string;
   fireballs: number;
+  winner: string|null;
 };
 
 const DefaultBoard : Board = {
@@ -11,7 +12,8 @@ const DefaultBoard : Board = {
   worms: "",
   tray: "",
   opponent: "Opponent",
-  fireballs: 0
+  fireballs: 0,
+  winner: null
 };
 
 export default DefaultBoard;

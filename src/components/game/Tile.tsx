@@ -3,31 +3,46 @@ import { useDrag } from 'react-dnd'
 
 const Tile = ({type, tileletter, position}:{type:string, tileletter:string, position:number}) => {
 
-  var tiletype = 'none'
+  var movetype = 'none'
   if (type === 'movetile' || type === 'traytile') {
-    tiletype = 'moveable'
+    movetype = 'moveable'
   }
 
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: tiletype,
+    type: movetype,
     item: {letter:tileletter, type:type, position:position},
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })
   }))
   function placetile() {
-    if (!tileletter) return(<div />)
-    if (type === 'boardtile') {
-      return(<div  className='tile'>{tileletter.toUpperCase()}</div>)
-    }else if (type === 'traytile'){      
-      return(<div ref={drag} className='tile'>{tileletter.toUpperCase()}</div>)
-    }else if (type === 'movetile'){
-      return(<div ref={drag} className='tile move'>{tileletter.toUpperCase()}</div>)
-    } else if (type === 'hitcell') {
-      return (<div ref={drag} className='tile hit'>{tileletter.toUpperCase()}</div>)
-    } else if (type === 'bombtile'){
-      return (<div className='tile miss bomb'>{tileletter.toUpperCase()}</div>)
+    if (type=='boardtile'){    
+      if (tileletter==tileletter.toUpperCase()){
+        // console.log(tileletter)
+        return (
+          <div className='tile hit'>{tileletter.toUpperCase()}</div>
+        )
+      }else{
+        
+        return (
+          <div className='tile'>{tileletter.toUpperCase()}</div>
+        )
+      }
+    }else if (type=='traytile'){
+      return (
+        <div  ref={drag} className='tile'>{tileletter}</div>
+      )
+    } else if (type == 'movetile') {
+      return (
+        <div ref={drag} className='tile'>{tileletter}</div>
+      )
+    } else {
+      return (
+        <div  className='tile'>{tileletter}</div>
+      )
     }
+  
+    
   }
 
   return (

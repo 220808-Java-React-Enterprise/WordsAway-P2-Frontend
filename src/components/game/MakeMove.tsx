@@ -1,10 +1,12 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+  makeMove: Function
+}
 
 const MakeMove = (props: Props) => {
   return (
-    <div className='makemove'>
+    <div onClick={()=>props.makeMove()} className='makemove'>
         <div className='center'>Make Move</div>
     </div>
   )
