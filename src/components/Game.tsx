@@ -100,13 +100,16 @@ const Game = () => {
     ])
 
     async function getGame() {
-        let game_id = sessionStorage.getItem("game_id");
-        if (game_id == null) window.location.href = "/login";
-        await WORDS_API.get("/getGame", {params: {id: game_id}}).then((response: AxiosResponse<Board>) => {
+      let board_id = sessionStorage.getItem("board_id");
+      if (board_id == null) window.location.href = "/login";
+      else {
+        await WORDS_API.get("getGame", { params: { id: board_id } }).then(
+          (response: AxiosResponse) => {
             console.log(response.data);
             setGame(response.data);
-        })
-        .catch(() => window.location.href = "/login");
+          }
+        ).catch(() => window.location.href = "/login");
+      }
     }
     useEffect(() => {
         getGame();

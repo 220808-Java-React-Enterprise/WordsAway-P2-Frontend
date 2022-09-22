@@ -22,15 +22,15 @@ const Lobby = () => {
       username: username,
     })
       .then((response) => {
-        alert("Game ID: " + response.data);
-        sessionStorage.setItem("game_id", response.data);
+        alert("Board ID: " + response.data);
+        sessionStorage.setItem("board_id", response.data);
         window.location.href = "/game";
       })
       .catch((response) => alert(response));
   }
 
   function continueGame(board_id: string) {
-    alert("Game ID: " + board_id);
+    alert("Board ID: " + board_id);
     sessionStorage.setItem("board_id", board_id);
     window.location.href = "/game";
   }
