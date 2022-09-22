@@ -28,30 +28,23 @@ const Login = () => {
       username: username,
       password: hash,
     })
-      .then((response) => {
-        alert(response.headers.authorization);
-        sessionStorage.setItem("token", response.headers.authorization);
-        axios.defaults.headers.common.Authorization =
-          response.headers.authorization;
-        window.location.href = "/";
-      })
-      .catch((response) => alert(response));
+    .then((response) => {
+      alert(response.headers.authorization);
+      sessionStorage.setItem("token", response.headers.authorization);
+      axios.defaults.headers.common.Authorization = response.headers.authorization;
+      window.location.href = "/";
+    })
+    .catch((response) => alert(response));
   }
   return (
     <div>
       <form onSubmit={login}>
-        <input type="text" placeholder="Username" onChange={updateUsername} />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={updatePassword}
-        />
-        <br />
+        <input type="text" placeholder='Username' onChange={updateUsername} /><br />
+        <input type="password" placeholder='Password' onChange={updatePassword} /><br />
         <button type="submit">Login</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
 export default Login;
