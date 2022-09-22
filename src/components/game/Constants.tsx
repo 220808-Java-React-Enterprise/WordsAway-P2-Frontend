@@ -1,3 +1,3 @@
-export const ItemTypes ={
-    TRAYTILE: 'traytile'
-}
+export const ItemTypes = {
+  TRAYTILE: "traytile",
+};

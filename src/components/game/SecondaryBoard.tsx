@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const SecondaryBoard = () => {
-  return (
-    <div className='secondaryBoard'>SecondaryBoard</div>
-  )
-}
+  return <div className="secondaryBoard">SecondaryBoard</div>;
+};
 
-export default SecondaryBoard
+export default SecondaryBoard;

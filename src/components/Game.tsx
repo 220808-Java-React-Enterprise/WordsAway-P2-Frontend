@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TopBanner from './game/TopBanner'
 import MainBoard from './game/MainBoard'
 import SecondaryBoard from './game/SecondaryBoard'
@@ -6,10 +6,15 @@ import Tray from './game/Tray'
 import BottomBanner from './game/BottomBanner'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import WORDS_API from '../utils/ApiConfig'
+import { AxiosResponse } from 'axios'
+import { Board } from './game/Board.type'
 
 const Game = () => {
+
+    const [game, setGame] = useState<Board>();
   
-    const [board, setboard] = useState([
+    const [board] = useState([
         {
             "user": "Player",
             "tray" : ["a","b","c","d","e","f","g"],
@@ -92,7 +97,22 @@ const Game = () => {
                 ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."
             ]
         }    
-])
+    ])
+
+    async function getGame() {
+        let game_id = sessionStorage.getItem("game_id");
+        if (game_id == null) window.location.href = "/login";
+        await WORDS_API.get("/getGame", {params: {id: game_id}}).then((response: AxiosResponse<Board>) => {
+            console.log(response.data);
+            setGame(response.data);
+        })
+        .catch(() => window.location.href = "/login");
+    }
+    useEffect(() => {
+        getGame();
+    }, []);
+    
+
 
   return (
     <div className='game'>
