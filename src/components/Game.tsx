@@ -34,7 +34,7 @@ const Game = () => {
 
 
     //Setup Variables
-    const [game, setGame] = useState<Board>(DefaultBoard)
+//    const [game, setGame] = useState<Board>(DefaultBoard)
 
     const [users, setUsers] = useState([
         {"username": "_"},
@@ -181,10 +181,10 @@ const Game = () => {
       if (board_id == null) window.location.href = "/login";
       else {
         WORDS_API.get("getGame", { params: { id: board_id } }).then(
-          (response: AxiosResponse) => {
+          async (response: AxiosResponse) => {
             console.log(response.data);
-            setGame(response.data);
-            updateState();
+//            setGame(response.data);
+            updateState(response.data);
           }
         ).catch(() => window.location.href = "/login");
       }
@@ -193,7 +193,7 @@ const Game = () => {
         getGame();
     },[]);
 
-    function updateState() {
+    function updateState(game: Board) {
         // WORDS_API.get("/getGame").then((response: AxiosResponse<User[]>) => {
         //     console.log(response.data);
         //     setUsers(response.data);
@@ -316,6 +316,7 @@ const Game = () => {
             "worms": game.worms.split("")
         }
         ])
+        setUsers([{username: (sessionStorage.getItem("username") || "")}, {username: game.opponent}])
     }
 
     useEffect(()=>{
@@ -336,7 +337,7 @@ const Game = () => {
         console.log("To: " + inOb + " at " + inN)
 
         // changing outgoing cells
-        var OOut = [], OIn = [], NOut:string[] = [], NIn:string[] = [], NLetter:string;
+        var OOut = [], OIn = [], NOut:string[] = [], NIn:string[] = [];
         if (outOb === 'traytile' && inOb === 'boardtile'){
             OOut = JSON.parse(sessionStorage.tray)[0].value
             OIn = JSON.parse(sessionStorage.move)[0].move
