@@ -52,7 +52,8 @@ const Game = () => {
         "worms": bb
     }
     ])
-    const [mergeBoard, setMergeBoard] = useState(bb)
+    const [fireball, setfireball] = useState(0)
+
 
     const [fireactive, setfireactive] = useState(false)
     function getGame() {
@@ -99,7 +100,7 @@ const Game = () => {
                 ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."
             ])
         setTray(game.tray.split(""))
-       
+       setfireball(game.fireballs)
         setWorms([{
             "worms": [
                 ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".",
@@ -259,7 +260,7 @@ const Game = () => {
                   </div>
                   <div className='rightboard'> 
                     <SecondaryBoard worms={worms[1].worms} />
-                    <FireballCounter count={3}/>
+                    <FireballCounter count={fireball}/>
                     <FireballLaunch isActive={fireactive} activate={activateFire}/>
                     <div className='movebar'>
                         <MakeMove makeMove={makeMove}/>
