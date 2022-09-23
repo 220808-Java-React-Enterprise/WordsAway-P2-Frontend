@@ -13,9 +13,6 @@ import WORDS_API from '../utils/ApiConfig'
 import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
-import { count } from 'console'
-
-//
 
 const Game = () => {
   const bb: string[] = 
@@ -44,7 +41,8 @@ const Game = () => {
   const [fireball, setfireball] = useState({
     "count":0,
     placed: false
-    })
+  })
+  const [isActive, setActive] = useState(false)
 
     function waitForTurn(){
         console.log('Wait for turn')
@@ -57,7 +55,17 @@ const Game = () => {
     else {
       await WORDS_API.get('getGame', { params: { id: board_id } })
       .then(async (response: AxiosResponse) => {
-        updateState(response.data)
+        let game: Board = response.data
+        if (game.winner) {
+          //Handle win/lose
+        } else if (!game.active) {
+          const eventSource = new EventSource(`http://localhost:8080/wordsaway/active?board_id=${board_id}` )
+          eventSource.addEventListener("active", (event) => {
+            getGame()
+            eventSource.close()
+          })
+        }
+        updateState(game)
       })
       .catch(() => (window.location.href = '/login'))
     }
@@ -74,6 +82,7 @@ const Game = () => {
     setfireball({"count":game.fireballs, placed:false})
     setWorms(game.worms.split(''))
     setUsers([{ username: sessionStorage.getItem('username') || '' }, { username: game.opponent }])
+    setActive(game.active)
   }
 
   useEffect(() => {
@@ -103,7 +112,7 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      //updateState(response.data)
     })
     .catch((error) => {
       console.log(error)
@@ -119,7 +128,8 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      getGame()
+      //updateState(response.data)
     })
     .catch((error) => {
       console.log(error)
@@ -211,7 +221,7 @@ const Game = () => {
   return (
     <div className='game'>
       <DndProvider backend={HTML5Backend}>
-        <TopBanner name={users[1].username} />
+        <TopBanner name={users[1].username} active={!isActive} />
         <div className='boards'>
           <div className='leftboard'>
             <MainBoard moves={move} updateGame={updateGame} letters={board} />
@@ -219,7 +229,7 @@ const Game = () => {
           <div className='rightboard'>
             <SecondaryBoard worms={worms} />
             <FireballCounter count={fireball.count} />
-                      <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
+            <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
             <div className='movebar'>
               <MakeMove makeMove={makeMove} />
               <SwapTray swapTray={swapTray} />
@@ -229,7 +239,7 @@ const Game = () => {
 
         <Tray updateGame={updateGame} trayletters={tray} />
 
-        <BottomBanner name={users[0].username} />
+        <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
     </div>
   )
