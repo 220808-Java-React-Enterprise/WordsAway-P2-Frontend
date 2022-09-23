@@ -46,6 +46,10 @@ const Game = () => {
     placed: false
     })
 
+    function waitForTurn(){
+        console.log('Wait for turn')
+    }
+
   const [fireactive, setfireactive] = useState(false)
   async function getGame() {
     let board_id = sessionStorage.getItem('board_id')
@@ -120,6 +124,7 @@ const Game = () => {
     .catch((error) => {
       console.log(error)
     })
+    waitForTurn()
   }
 
   function swapTray() {
@@ -136,6 +141,7 @@ const Game = () => {
     .catch((error) => {
       console.log(error)
     })
+    waitForTurn()
   }
 
   function updateGame(inOb: string, outOb: string, inN: number, outN: number, letter: string) {
