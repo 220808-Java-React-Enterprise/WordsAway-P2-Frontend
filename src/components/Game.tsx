@@ -43,6 +43,7 @@ const Game = () => {
     placed: false
   })
   const [isActive, setActive] = useState(false)
+  const [winner, setWinner] = useState<string|null>(null)
 
     function waitForTurn(){
         console.log('Wait for turn')
@@ -51,20 +52,19 @@ const Game = () => {
   const [fireactive, setfireactive] = useState(false)
   async function getGame() {
     let board_id = sessionStorage.getItem('board_id')
-    if (board_id == null) window.location.href = '/login'
+    if (board_id == null) window.location.href = '/lobby'
     else {
       await WORDS_API.get('getGame', { params: { id: board_id } })
       .then(async (response: AxiosResponse) => {
         let game: Board = response.data
-        if (game.winner) {
-          //Handle win/lose
-        } else if (!game.active) {
+        if (!game.active) {
           const eventSource = new EventSource(`http://localhost:8080/wordsaway/active?board_id=${board_id}` )
           eventSource.addEventListener("active", (event) => {
             getGame()
             eventSource.close()
           })
         }
+        game.winner = "Not me."
         updateState(game)
       })
       .catch(() => (window.location.href = '/login'))
@@ -83,6 +83,7 @@ const Game = () => {
     setWorms(game.worms.split(''))
     setUsers([{ username: sessionStorage.getItem('username') || '' }, { username: game.opponent }])
     setActive(game.active)
+    setWinner(game.winner)
   }
 
   useEffect(() => {
@@ -146,7 +147,7 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      getGame()
     })
     .catch((error) => {
       console.log(error)
@@ -218,6 +219,17 @@ const Game = () => {
     }
   }
 
+  async function endGame() {
+    await WORDS_API.post('endGame', {
+      boardID: sessionStorage.board_id
+    })
+    .then((response) => {
+      alert('Board ID: ' + response.data)
+      window.location.href = '/lobby'
+    })
+    .catch((response) => alert(response))
+  }
+
   return (
     <div className='game'>
       <DndProvider backend={HTML5Backend}>
@@ -228,16 +240,19 @@ const Game = () => {
           </div>
           <div className='rightboard'>
             <SecondaryBoard worms={worms} />
+            {!winner ?
+            <>
             <FireballCounter count={fireball.count} />
             <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
             <div className='movebar'>
               <MakeMove makeMove={makeMove} />
               <SwapTray swapTray={swapTray} />
             </div>
+            </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
 
-        <Tray updateGame={updateGame} trayletters={tray} />
+        {!winner ? <Tray updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
 
         <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
