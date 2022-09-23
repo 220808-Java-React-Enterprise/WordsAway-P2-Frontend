@@ -64,7 +64,6 @@ const Game = () => {
             eventSource.close()
           })
         }
-        game.winner = "Not me."
         updateState(game)
       })
       .catch(() => (window.location.href = '/login'))
