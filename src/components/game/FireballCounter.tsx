@@ -7,7 +7,7 @@ type Props = {
 const FireballCounter = (props: Props) => {
   return (
     <div className='fbcount'>
-        <div  className='center'>{props.count}</div>
+      <div className='center'>{props.count}</div>
     </div>
   )
 }

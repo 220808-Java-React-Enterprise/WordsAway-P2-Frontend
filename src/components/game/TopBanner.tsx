@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 export interface TopBannerProps {
-  name: string;
+  name: string
 }
 
 const TopBanner = ({ name }: TopBannerProps) => {
-  return <div className="banner topbanner">{name}</div>;
-};
+  return <div className='banner topbanner'>{name}</div>
+}
 
-export default TopBanner;
+export default TopBanner

@@ -1,38 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { AxiosResponse } from "axios";
-import { User } from "./lobby/User.type";
-import WORDS_API from "../utils/ApiConfig";
+import React, { useState, useEffect } from 'react'
+import { AxiosResponse } from 'axios'
+import { User } from '../types/User.type'
+import WORDS_API from '../utils/ApiConfig'
 
 const Lobby = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([])
   async function getOpponents() {
-    await WORDS_API.get("/getOpponents")
-      .then((response: AxiosResponse<User[]>) => {
-        console.log(response.data);
-        setUsers(response.data);
-      })
-      .catch(() => (window.location.href = "/login"));
+    await WORDS_API.get('/getOpponents')
+    .then((response: AxiosResponse<User[]>) => {
+      console.log(response.data)
+      setUsers(response.data)
+    })
+    .catch(() => (window.location.href = '/login'))
   }
   useEffect(() => {
-    getOpponents();
-  }, []);
+    getOpponents()
+  }, [])
 
   async function startGame(username: string) {
-    await WORDS_API.post("makeGame", {
-      username: username,
+    await WORDS_API.post('makeGame', {
+      username: username
     })
-      .then((response) => {
-        alert("Board ID: " + response.data);
-        sessionStorage.setItem("board_id", response.data);
-        window.location.href = "/game";
-      })
-      .catch((response) => alert(response));
+    .then((response) => {
+      alert('Board ID: ' + response.data)
+      sessionStorage.setItem('board_id', response.data)
+      window.location.href = '/game'
+    })
+    .catch((response) => alert(response))
   }
 
   function continueGame(board_id: string) {
-    alert("Board ID: " + board_id);
-    sessionStorage.setItem("board_id", board_id);
-    window.location.href = "/game";
+    alert('Board ID: ' + board_id)
+    sessionStorage.setItem('board_id', board_id)
+    window.location.href = '/game'
   }
 
   return (
@@ -53,13 +53,9 @@ const Lobby = () => {
               <td>{user.elo}</td>
               <td>
                 {user.board_id == null ? (
-                  <button onClick={() => startGame(user.username)}>
-                    Challenge!
-                  </button>
+                  <button onClick={() => startGame(user.username)}>Challenge!</button>
                 ) : (
-                  <button onClick={() => continueGame(user.board_id)}>
-                    Continue!
-                  </button>
+                  <button onClick={() => continueGame(user.board_id)}>Continue!</button>
                 )}
               </td>
             </tr>
@@ -67,6 +63,6 @@ const Lobby = () => {
         </tbody>
       </table>
     </>
-  );
-};
-export default Lobby;
+  )
+}
+export default Lobby

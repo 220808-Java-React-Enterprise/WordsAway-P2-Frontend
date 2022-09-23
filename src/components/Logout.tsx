@@ -1,5 +1,5 @@
 const Logout = () => {
-  sessionStorage.removeItem("token");
-};
+  sessionStorage.removeItem('token')
+}
 
-export default Logout;
+export default Logout

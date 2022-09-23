@@ -1,26 +1,21 @@
 import React from 'react'
-import Wormtile from './Wormtile';
+import Wormtile from './Wormtile'
 
 type Props = {
-    worm:string;
-    // hit:string;
+  worm: string
+  // hit:string;
 }
 
-const MiniCell = ( props: Props) => {
-
-  if (props.worm!='.'){
+const MiniCell = (props: Props) => {
+  if (props.worm !=='.') {
     return (
       <div className='minicell'>
-        <Wormtile/>
+        <Wormtile />
       </div>
     )
   }
 
-
-  return (
-    <div className='minicell'>
-    </div>
-  )
+  return <div className='minicell'></div>
 }
 
 export default MiniCell

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
 
-const Tile = ({type, tileletter, position}:{type:string, tileletter:string, position:number}) => {
-
+const Tile = ({ type, tileletter, position }: { type: string; tileletter: string; position: number }) => {
   var movetype = 'none'
   if (type === 'movetile' || type === 'traytile') {
     movetype = 'moveable'
@@ -10,46 +9,36 @@ const Tile = ({type, tileletter, position}:{type:string, tileletter:string, posi
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: movetype,
-    item: {letter:tileletter, type:type, position:position},
+    item: { letter: tileletter, type: type, position: position },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()
     })
   }))
   function placetile() {
-    if (type=='boardtile'){    
-      if (tileletter==tileletter.toUpperCase()){
-        // console.log(tileletter)
-        return (
-          <div className='tile hit'>{tileletter.toUpperCase()}</div>
-        )
-      }else{
-        
-        return (
-          <div className='tile'>{tileletter.toUpperCase()}</div>
-        )
+    if (type === 'boardtile') {
+      if (tileletter === tileletter.toUpperCase()) {
+        return <div className='tile hit'>{tileletter.toUpperCase()}</div>
+      } else {
+        return <div className='tile'>{tileletter.toUpperCase()}</div>
       }
-    }else if (type=='traytile'){
+    } else if (type === 'traytile') {
       return (
-        <div  ref={drag} className='tile'>{tileletter}</div>
+        <div ref={drag} className='tile'>
+          {tileletter}
+        </div>
       )
-    } else if (type == 'movetile') {
+    } else if (type === 'movetile') {
       return (
-        <div ref={drag} className='tile'>{tileletter}</div>
+        <div ref={drag} className='tile'>
+          {tileletter}
+        </div>
       )
     } else {
-      return (
-        <div  className='tile'>{tileletter}</div>
-      )
+      return <div className='tile'>{tileletter}</div>
     }
-  
-    
   }
 
-  return (
-    <>
-    {placetile()}
-    </>
-  )
+  return <>{placetile()}</>
 }
 
-export default Tile;
+export default Tile

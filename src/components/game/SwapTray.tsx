@@ -1,12 +1,14 @@
 import React from 'react'
 
 type Props = {
-    swapTray:Function
+  swapTray: Function
 }
 
 const SwapTray = (props: Props) => {
   return (
-      <div onClick={()=>props.swapTray()} className='swaptray'><div>SwapTray</div></div>
+    <div onClick={() => props.swapTray()} className='swaptray'>
+      <div>SwapTray</div>
+    </div>
   )
 }
 
