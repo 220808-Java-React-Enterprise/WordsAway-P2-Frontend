@@ -170,9 +170,9 @@ code {
 
 
 .secondaryBoard {
-    background-color: burlywood;
-    width: 20rem;
-    height: 20rem;
+    background-color: darkgoldenrod;
+    width: 25rem;
+    height: 25rem;
     margin-left: 1rem;
     border-radius: 5px;
     border-style: solid;
@@ -181,9 +181,9 @@ code {
 }
 
 .minicell{
-    height: 1em;
-    width: 1em;
-    background-color: bisque;
+    height: 1.5em;
+    width: 1.5em;
+    background-color: rgba(222, 184, 135, 0.5);
     border-radius: .1em;
     margin: auto;
     display: flex;
@@ -191,19 +191,20 @@ code {
 }
 
 .wormtile {
-    height: .9rem;
-    width: .9rem;
+    height: 1.3rem;
+    width: 1.3rem;
     background-color: black;
     margin: auto;
     color: wheat;
-    font-size: .7em;
+    font-size: .85em;
     font-weight: bold;
     text-align: center;
+    border-radius: .25rem;
 }
 
 .minirow{
     display: flex;
-    height: calc(20rem/16);
+    height: calc(25rem/16);
 }
 
 .fbcount{
@@ -217,7 +218,7 @@ code {
     text-align: center;
     margin: .5rem;
     margin-left: 2rem;
-    margin-top: 2rem;
+    margin-top: .25rem;
     
 }
 .fblaunch{
@@ -294,6 +295,7 @@ code {
         -webkit-box-shadow: 10px 10px 16px #000000;
         box-shadow: 10px 10px 16px #000000;
         margin-left: 0;
+        align-content: center;
 }
 
 

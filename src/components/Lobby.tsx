@@ -36,7 +36,7 @@ const Lobby = () => {
   }
 
   return (
-    <>
+    <><div>
       <h1>CHOOSE YOUR CHALLENGER!</h1>
       <table>
         <thead>
@@ -50,7 +50,7 @@ const Lobby = () => {
           {users.map((user) => (
             <tr key={user.username}>
               <td>{user.username}</td>
-              <td>{user.elo}</td>
+              <td>{user.elo.toFixed(0)}</td>
               <td>
                 {user.board_id == null ? (
                   <button onClick={() => startGame(user.username)}>Challenge!</button>
@@ -62,6 +62,7 @@ const Lobby = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </>
   )
 }
