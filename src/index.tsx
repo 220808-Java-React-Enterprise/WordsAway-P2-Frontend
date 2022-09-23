@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import './game.css'
-import './gamesetup.css'
+import './css/index.css'
+import './css/game.css'
+import './css/gamesetup.css'
 import './css/login.css'
 
 import App from './App'
