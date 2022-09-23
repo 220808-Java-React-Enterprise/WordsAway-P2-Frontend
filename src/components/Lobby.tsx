@@ -36,7 +36,8 @@ const Lobby = () => {
   }
 
   return (
-    <><div>
+    <div id='lobbycontainer'>
+      <div id='floatlobby'>
       <h1>CHOOSE YOUR CHALLENGER!</h1>
       <table>
         <thead>
@@ -62,8 +63,9 @@ const Lobby = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
-    </>
+    
   )
 }
 export default Lobby

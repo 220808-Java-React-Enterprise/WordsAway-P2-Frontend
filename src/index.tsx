@@ -4,6 +4,7 @@ import './css/index.css'
 import './css/game.css'
 import './css/gamesetup.css'
 import './css/login.css'
+import './css/lobby.css'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
