@@ -13,6 +13,7 @@ import WORDS_API from '../utils/ApiConfig'
 import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
+import { URL } from '../utils/ApiConfig'
 
 const Game = () => {
   const bb: string[] = 
@@ -59,7 +60,7 @@ const Game = () => {
         if (game.winner) {
           //Handle win/lose
         } else if (!game.active) {
-          const eventSource = new EventSource(`http://localhost:8080/wordsaway/active?board_id=${board_id}` )
+          const eventSource = new EventSource(`${URL}/active?board_id=${board_id}` )
           eventSource.addEventListener("active", (event) => {
             getGame()
             eventSource.close()
@@ -146,7 +147,7 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      getGame()
     })
     .catch((error) => {
       console.log(error)
