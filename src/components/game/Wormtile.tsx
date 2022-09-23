@@ -1,9 +1,11 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+  letter:string
+}
 
 const Wormtile = (props: Props) => {
-  return <div className='wormtile'></div>
+  return <div className='wormtile'>{props.letter.toUpperCase()}</div>
 }
 
 export default Wormtile

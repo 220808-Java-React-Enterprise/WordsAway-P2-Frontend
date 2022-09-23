@@ -10,7 +10,7 @@ const MiniCell = (props: Props) => {
   if (props.worm !=='.') {
     return (
       <div className='minicell'>
-        <Wormtile />
+        <Wormtile letter={props.worm} />
       </div>
     )
   }

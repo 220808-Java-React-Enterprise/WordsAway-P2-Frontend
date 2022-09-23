@@ -61,7 +61,13 @@ const Cell = ({
           {/* <Tile tileletter={letter} position={position} type='@' /> */}
         </div>
       )
-    } else if (type === 'empty') {
+    } else if (type === 'fbtile') {
+      return (
+        <div className='cell'>
+          <Tile tileletter={letter} position={position} type='fbtile' />
+        </div>
+      )
+    } else if (type === 'empty' || type ==='emptytraytile') {
       return <div ref={drop} className='cell'></div>
     }
 

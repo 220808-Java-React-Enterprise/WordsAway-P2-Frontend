@@ -13,6 +13,7 @@ import WORDS_API from '../utils/ApiConfig'
 import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
+import { count } from 'console'
 
 //
 
@@ -40,7 +41,10 @@ const Game = () => {
   const [move, setMove] = useState(bb)
   const [tray, setTray] = useState('.......'.split(''))
   const [worms, setWorms] = useState(bb)
-  const [fireball, setfireball] = useState(0)
+  const [fireball, setfireball] = useState({
+    "count":0,
+    placed: false
+    })
 
   const [fireactive, setfireactive] = useState(false)
   async function getGame() {
@@ -63,7 +67,7 @@ const Game = () => {
     setboard(game.letters.split(''))
     setMove(bb)
     setTray(game.tray.split(''))
-    setfireball(game.fireballs)
+    setfireball({"count":game.fireballs, placed:false})
     setWorms(game.worms.split(''))
     setUsers([{ username: sessionStorage.getItem('username') || '' }, { username: game.opponent }])
   }
@@ -183,6 +187,18 @@ const Game = () => {
       NIn[outN] = '.'
 
       setTray(NIn)
+    } else if (outOb === 'fbtile' && inOb === 'empty') {
+        console.log('Working')
+
+        OIn = JSON.parse(sessionStorage.move)
+
+        NIn = [...OIn]
+        NIn[inN] = "*"
+
+        setMove(NIn)
+        
+        setfireball({"count":fireball.count-1,"placed":true})
+        checkMove(NIn)
     }
   }
 
@@ -196,8 +212,8 @@ const Game = () => {
           </div>
           <div className='rightboard'>
             <SecondaryBoard worms={worms} />
-            <FireballCounter count={fireball} />
-            <FireballLaunch isActive={fireactive} activate={activateFire} />
+            <FireballCounter count={fireball.count} />
+                      <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
             <div className='movebar'>
               <MakeMove makeMove={makeMove} />
               <SwapTray swapTray={swapTray} />

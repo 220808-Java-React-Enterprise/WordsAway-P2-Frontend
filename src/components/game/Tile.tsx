@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd'
 
 const Tile = ({ type, tileletter, position }: { type: string; tileletter: string; position: number }) => {
   var movetype = 'none'
-  if (type === 'movetile' || type === 'traytile') {
+  if (type === 'movetile' || type === 'traytile' || type === 'fbtile') {
     movetype = 'moveable'
   }
 
@@ -28,6 +28,12 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
         </div>
       )
     } else if (type === 'movetile') {
+      return (
+        <div ref={drag} className='tile'>
+          {tileletter}
+        </div>
+      )
+    } else if (type === 'fbtile') {
       return (
         <div ref={drag} className='tile'>
           {tileletter}
