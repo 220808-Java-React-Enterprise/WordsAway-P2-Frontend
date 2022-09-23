@@ -22,7 +22,6 @@ const Lobby = () => {
       username: username
     })
     .then((response) => {
-      alert('Board ID: ' + response.data)
       sessionStorage.setItem('board_id', response.data)
       window.location.href = '/game'
     })
