@@ -16,7 +16,7 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
   }))
   function placetile() {
     if (type === 'boardtile') {
-      if (tileletter === tileletter.toUpperCase()) {
+      if (tileletter === tileletter.toUpperCase() && tileletter!== "&") {
         return <div className='tile hit'>{tileletter.toUpperCase()}</div>
       } else {
         return <div className='tile'>{tileletter.toUpperCase()}</div>
