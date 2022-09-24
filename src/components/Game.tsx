@@ -125,6 +125,7 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
+      setLegalMove(false)
       getGame()
       //updateState(response.data)
     })
