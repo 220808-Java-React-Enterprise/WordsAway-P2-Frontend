@@ -6,9 +6,9 @@ type Props = {
 
 const SwapTray = (props: Props) => {
   return (
-    <div onClick={() => props.swapTray()} className='swaptray'>
-      <div>SwapTray</div>
-    </div>
+    <button onClick={() => props.swapTray()} className='swaptray'>
+      <div style={{margin:'auto'}}>SwapTray</div>
+    </button>
   )
 }
 

@@ -318,12 +318,10 @@ code {
     display: flex;
     flex-direction: column;
     margin: .5rem;
-    margin-left: 2rem;
     -moz-box-shadow: 10px 10px 16px #000000;
     -webkit-box-shadow: 10px 10px 16px #000000;
     box-shadow: 10px 10px 16px #000000;
-    margin-left: 0;
-    align-content: center;
+    
 }
 
 
@@ -377,9 +375,9 @@ code {
     top: 1rem;
     font-size: 2rem;
     text-align: center;
-    font-weight: bold;
+    font-weight:900;
     color: greenyellow;
-    -webkit-text-stroke: .1rem black;
+    /* -webkit-text-stroke: .1rem black; */
     user-select: none;
     border-style: solid;
     border-color: black;
