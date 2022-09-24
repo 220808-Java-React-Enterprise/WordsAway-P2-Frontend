@@ -21,12 +21,17 @@
     
 }
 #floatlobby table {
-    width:100%;
+    width:90%;
+    height: 100%;
+    padding-left: 10%;
     overflow:scroll;    
+
 }
 
 #floatlobby th {
     border-bottom: 2px solid;
+    
+    
 }
 #floatlobby tr {
     
@@ -35,9 +40,10 @@
 
 #tablediv{
     border-style: solid;
-        border-radius: 1rem;
-        width: 80%;
-        margin: 0 10% 0 10%;
-        height: 80%;
-        background-color: rgba(45, 58, 231, 0.178);
+    border-radius: 1rem;
+    width: 80%;
+    margin: 0 10% 0 10%;
+    height: 80%;
+    background-color: rgba(45, 58, 231, 0.178);
+    overflow: auto;
 }
