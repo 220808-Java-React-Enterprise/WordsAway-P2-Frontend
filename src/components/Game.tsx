@@ -16,7 +16,6 @@ import SwapTray from './game/SwapTray'
 import Overlay from './game/Overlay'
 import InvalidMove from './game/InvalidMove'
 import { URL } from '../utils/ApiConfig'
-import { updateVariableDeclarationList } from 'typescript'
 
 const Game = () => {
   const bb: string[] = 
@@ -67,6 +66,7 @@ const Game = () => {
             getGame()
             eventSource.close()
           })
+          eventSource.onerror = () => getGame()
         }
         updateState(game)
       })

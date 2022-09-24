@@ -7,8 +7,7 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
     movetype = 'moveable'
   }
 
-
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: movetype,
     item: { letter: tileletter, type: type, position: position },
     collect: (monitor) => ({
