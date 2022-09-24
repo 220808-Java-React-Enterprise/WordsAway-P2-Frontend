@@ -8,8 +8,8 @@ type Props = {
 const Overlay = (props: Props) => {
   return (
     <div id='gameoverlay' style={{
-        display:props.active?'none':'block'
-    }}></div>
+        display:props.active?'none':'flex'
+    }}><h1 className='center2ElectricBoogaloo'>Opponent is Thinking...</h1></div>
   )
 }
 
