@@ -5,7 +5,9 @@ import Cell from './Cell'
 
 type Props = {
   fb: any
-  updateGame: Function
+  updateGame: Function;
+  moveable:boolean
+
 }
 
 const FireballLaunch = (props: Props) => {
@@ -14,7 +16,7 @@ const FireballLaunch = (props: Props) => {
   fbtile.push(
     <div key={0}/>
   )
-  if (props.fb.count>0 && !props.fb.placed){
+  if (props.fb.count>0 && !props.fb.placed && props.moveable){
     fbtile.push(
     <Cell updateGame={props.updateGame()} position={0} type='fbtile' letter={'*'} key={1} />
     )

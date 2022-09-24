@@ -230,6 +230,16 @@ const Game = () => {
     })
     .catch((response) => alert(response))
   }
+
+  function checkExistingMove(){
+    for (let i=0; i<move.length;i++){
+      if (move[i]!=='.'){
+        return false;
+      }
+    }
+    return true;
+  }
+
   return (
     <>
     <div className='game'>
@@ -245,7 +255,7 @@ const Game = () => {
             {!winner ?
             <>
             <FireballCounter count={fireball.count} />
-            <FireballLaunch updateGame={updateGame} fb={fireball}/>
+            <FireballLaunch moveable={checkExistingMove()} updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
               { legalMove ? <MakeMove makeMove={makeMove} /> : <InvalidMove/>}
               <SwapTray swapTray={swapTray} />
@@ -253,7 +263,7 @@ const Game = () => {
             </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
-        {!winner ? <Tray updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
+        {!winner ? <Tray moveable={fireball.placed} updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
         <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
       

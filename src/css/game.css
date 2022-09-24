@@ -139,6 +139,15 @@ code {
     border-radius: 10px;
     border-style: solid;
     border-color: saddlebrown;
+    position: relative;
+}
+
+#traycover {
+    background-color: #92000073;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 .movetile {
@@ -375,3 +384,4 @@ code {
     border-style: solid;
     border-color: black;
 }
+
