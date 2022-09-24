@@ -7,7 +7,7 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
     movetype = 'moveable'
   }
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: movetype,
     item: { letter: tileletter, type: type, position: position },
     collect: (monitor) => ({
@@ -19,7 +19,7 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
       if (tileletter === tileletter.toUpperCase() && tileletter!== "&") {
         return <div className='tile hit'>{tileletter.toUpperCase()}</div>
       } else {
-        return <div style={{ backgroundColor: (tileletter == '&') ? 'rgba(220,220,220,.6)' : 'gainsboro' }} className='tile'>{tileletter.toUpperCase()}</div>
+        return <div style={{ backgroundColor: (tileletter === '&') ? 'rgba(220,220,220,.6)' : 'gainsboro' }} className='tile'>{tileletter.toUpperCase()}</div>
       }
     } else if (type === 'traytile') {
       return (
