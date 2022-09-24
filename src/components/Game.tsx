@@ -248,7 +248,7 @@ const Game = () => {
             <FireballCounter count={fireball.count} />
             <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
             <div className='movebar'>
-              { legalMove ?<MakeMove makeMove={makeMove} /> : <><div className='invalidmove'><div className='center'>Make Move</div></div></> }
+              { legalMove ?<MakeMove makeMove={makeMove} /> : <><div className='invalidmove'><div className='center'>Invalid Move</div></div></> }
               <SwapTray swapTray={swapTray} />
             </div>
             </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
