@@ -32,7 +32,9 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
         </div>
       )
     } else if (type === 'movetile') {
-      return (
+      if (tileletter==='*'){
+        return <div className='tile'><div style={{ fontSize: "1.5rem" }}>🔥</div></div>
+      }else return (
         <div ref={drag} className='tile'>
           {tileletter}
         </div>

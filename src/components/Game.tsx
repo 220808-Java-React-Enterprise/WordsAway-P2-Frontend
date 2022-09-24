@@ -236,6 +236,7 @@ const Game = () => {
       <DndProvider backend={HTML5Backend}>
         <TopBanner name={users[1].username} active={!isActive} />
         <div className='boards'>
+            
           <div className='leftboard'>
             <MainBoard moves={move} updateGame={updateGame} letters={board} />
           </div>
@@ -259,6 +260,7 @@ const Game = () => {
     </div>
       <Overlay message='test message' active={isActive} />
       <div onClick={() => { window.location.href = '/lobby' }} id='backbutton'>← Back</div>
+      <div onClick={()=>{getGame()}} id='refreshbutton'>⟳</div>
     </>
   )
 }
