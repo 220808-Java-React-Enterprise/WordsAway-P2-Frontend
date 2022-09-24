@@ -225,7 +225,6 @@ const Game = () => {
       boardID: sessionStorage.board_id
     })
     .then((response) => {
-      alert('Board ID: ' + response.data)
       window.location.href = '/lobby'
     })
     .catch((response) => alert(response))
