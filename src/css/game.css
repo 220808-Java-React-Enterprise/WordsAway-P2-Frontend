@@ -343,3 +343,17 @@ code {
     position: absolute;
     top:0;
 }
+
+#backbutton{
+    width: 8rem;
+    height: 3rem;
+    border-radius: .5rem;
+    background-color: #9e9e9e;
+    position: absolute;
+    border-style: solid;
+    top: 3rem;
+    left: 4rem;
+    font-size: 2rem;
+    text-align: center;
+    user-select: none;
+}

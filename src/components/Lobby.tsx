@@ -65,6 +65,7 @@ const Lobby = () => {
       </table>
         </div>
       </div>
+      <div onClick={() => { window.location.href = '/login' }} id='backbutton'>← Back</div>
     </div>
     
   )

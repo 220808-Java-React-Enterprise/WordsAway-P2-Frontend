@@ -252,14 +252,13 @@ const Game = () => {
             </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
-
         {!winner ? <Tray updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
-
         <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
       
     </div>
       <Overlay message='test message' active={isActive} />
+      <div onClick={() => { window.location.href = '/lobby' }} id='backbutton'>← Back</div>
     </>
   )
 }
