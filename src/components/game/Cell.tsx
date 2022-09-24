@@ -18,7 +18,7 @@ const Cell = ({
     dropType = 'moveable'
   }
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [, drop] = useDrop(() => ({
     accept: dropType,
     drop: (item: any) => {
       //(inOb:string, outOb:string, inN:number, outN:number, letter:string)
@@ -58,7 +58,6 @@ const Cell = ({
     } else if (type === '@') {
       return (
         <div ref={drop} className='cell hit'>
-          {/* <Tile tileletter={letter} position={position} type='@' /> */}
         </div>
       )
     } else if (type === 'fbtile') {
@@ -70,42 +69,6 @@ const Cell = ({
     } else if (type === 'empty' || type ==='emptytraytile') {
       return <div ref={drop} className='cell'></div>
     }
-
-    // if (type=='misscell'){
-    //     return (
-    //         <div className='cell miss'>
-    //             <Tile position={position} tileletter={letter} type={type} />
-    //         </div>
-    //     )
-    // } else if (type == 'hitcell'){
-    //     return (
-
-    //         <div className='cell'>
-    //             <Tile position={position} tileletter={letter} type={type} />
-    //         </div>
-    //     )
-    // }
-    // else if (letter!="."){
-    //     if (letter!='*'){
-    //     return(
-    //         <div className='cell'>
-    //         <Tile position={position} tileletter={letter} type={type} />
-    //         </div>
-    //     )}else {
-    //         return (
-    //             <div className='cell hit'>
-    //                 <Tile position={position} tileletter={letter} type={'bombtile'} />
-    //             </div>
-    //         )
-    //     }
-    // }
-    // else {
-    //     return(
-    //         <div ref={drop} className='cell'>
-
-    //         </div>
-    //     )
-    // }
   }
 
   return <>{placecell()}</>

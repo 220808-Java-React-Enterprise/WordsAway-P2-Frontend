@@ -5,4 +5,5 @@ export type Board = {
   opponent: string
   fireballs: number
   winner: string | null
+  active: boolean
 }

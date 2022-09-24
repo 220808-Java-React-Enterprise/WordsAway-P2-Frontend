@@ -22,7 +22,6 @@ const Lobby = () => {
       username: username
     })
     .then((response) => {
-      alert('Board ID: ' + response.data)
       sessionStorage.setItem('board_id', response.data)
       window.location.href = '/game'
     })
@@ -30,14 +29,16 @@ const Lobby = () => {
   }
 
   function continueGame(board_id: string) {
-    alert('Board ID: ' + board_id)
+    // alert('Board ID: ' + board_id)
     sessionStorage.setItem('board_id', board_id)
     window.location.href = '/game'
   }
 
   return (
-    <>
+    <div id='lobbycontainer'>
+      <div id='floatlobby'>
       <h1>CHOOSE YOUR CHALLENGER!</h1>
+      <div id='tablediv'>
       <table>
         <thead>
           <tr>
@@ -50,7 +51,7 @@ const Lobby = () => {
           {users.map((user) => (
             <tr key={user.username}>
               <td>{user.username}</td>
-              <td>{user.elo}</td>
+              <td>{user.elo.toFixed(0)}</td>
               <td>
                 {user.board_id == null ? (
                   <button onClick={() => startGame(user.username)}>Challenge!</button>
@@ -62,7 +63,11 @@ const Lobby = () => {
           ))}
         </tbody>
       </table>
-    </>
+        </div>
+      </div>
+      <div onClick={() => { window.location.href = '/login' }} id='backbutton'>← Back</div>
+    </div>
+    
   )
 }
 export default Lobby

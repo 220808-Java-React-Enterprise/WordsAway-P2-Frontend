@@ -1,7 +1,7 @@
 import React from 'react'
 import Cell from './Cell'
 
-const Tray = ({ trayletters, updateGame }: { trayletters: string[]; updateGame: Function }) => {
+const Tray = ({ trayletters, updateGame, moveable }: { trayletters: string[]; updateGame: Function; moveable:boolean }) => {
   const tray = []
   for (let i = 0; i < 7; i++) {
     if (trayletters[i] !== '.') {
@@ -11,7 +11,13 @@ const Tray = ({ trayletters, updateGame }: { trayletters: string[]; updateGame: 
     }
   }
 
-  return <div className='tray'>{tray}</div>
+  return (
+
+      <div className='tray'>
+        {tray}<div style={{display: !moveable?'none':'inline'}} id='traycover'/>
+      </div>
+
+  )
 }
 
 export default Tray

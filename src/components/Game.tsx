@@ -13,9 +13,9 @@ import WORDS_API from '../utils/ApiConfig'
 import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
-import { count } from 'console'
-
-//
+import Overlay from './game/Overlay'
+import InvalidMove from './game/InvalidMove'
+import { URL } from '../utils/ApiConfig'
 
 const Game = () => {
   const bb: string[] = 
@@ -44,16 +44,31 @@ const Game = () => {
   const [fireball, setfireball] = useState({
     "count":0,
     placed: false
-    })
+  })
+  const [isActive, setActive] = useState(false)
+  const [winner, setWinner] = useState<string|null>(null)
+  const [legalMove, setLegalMove] = useState(false)
 
-  const [fireactive, setfireactive] = useState(false)
+    function waitForTurn(){
+        console.log('Wait for turn')
+    }
+    
   async function getGame() {
     let board_id = sessionStorage.getItem('board_id')
-    if (board_id == null) window.location.href = '/login'
+    if (board_id == null) window.location.href = '/lobby'
     else {
       await WORDS_API.get('getGame', { params: { id: board_id } })
       .then(async (response: AxiosResponse) => {
-        updateState(response.data)
+        let game: Board = response.data
+        if (!game.active) {
+          const eventSource = new EventSource(`${URL}/active?board_id=${board_id}` )
+          eventSource.addEventListener("active", (event) => {
+            getGame()
+            eventSource.close()
+          })
+          eventSource.onerror = () => getGame()
+        }
+        updateState(game)
       })
       .catch(() => (window.location.href = '/login'))
     }
@@ -70,22 +85,16 @@ const Game = () => {
     setfireball({"count":game.fireballs, placed:false})
     setWorms(game.worms.split(''))
     setUsers([{ username: sessionStorage.getItem('username') || '' }, { username: game.opponent }])
+    setActive(game.active)
+    setWinner(game.winner)
   }
 
   useEffect(() => {
+    sessionStorage.setItem('fireballs', JSON.stringify(fireball))
     sessionStorage.setItem('board', JSON.stringify(board))
     sessionStorage.setItem('move', JSON.stringify(move))
     sessionStorage.setItem('tray', JSON.stringify(tray))
   })
-
-  function activateFire() {
-    if (fireactive) {
-      console.log('Fireball active')
-    } else {
-      console.log('Fireball inctive')
-    }
-    setfireactive(!fireactive)
-  }
 
   function checkMove(themove: string[]) {
     console.log(themove)
@@ -99,15 +108,17 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      setLegalMove(response.data)
     })
     .catch((error) => {
+      setLegalMove(false)
       console.log(error)
     })
   }
 
   function makeMove() {
     console.log('makemove')
+    setActive(false)
     WORDS_API.post('makeMove', {
       boardID: sessionStorage.board_id,
       layout: move,
@@ -115,15 +126,20 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+      setLegalMove(false)
+      getGame()
+      //updateState(response.data)
     })
     .catch((error) => {
       console.log(error)
+      setActive(true)
     })
+    waitForTurn()
   }
 
   function swapTray() {
     console.log('makemove')
+    setActive(false)
     WORDS_API.post('makeMove', {
       boardID: sessionStorage.board_id,
       layout: bb,
@@ -131,11 +147,14 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      updateState(response.data)
+
+      getGame()
     })
     .catch((error) => {
       console.log(error)
+      setActive(true)
     })
+    waitForTurn()
   }
 
   function updateGame(inOb: string, outOb: string, inN: number, outN: number, letter: string) {
@@ -188,44 +207,70 @@ const Game = () => {
 
       setTray(NIn)
     } else if (outOb === 'fbtile' && inOb === 'empty') {
-        console.log('Working')
+      console.log('Working')
 
-        OIn = JSON.parse(sessionStorage.move)
+      OIn = JSON.parse(sessionStorage.move)
 
-        NIn = [...OIn]
-        NIn[inN] = "*"
+      NIn = [...OIn]
+      NIn[inN] = "*"
 
-        setMove(NIn)
-        
-        setfireball({"count":fireball.count-1,"placed":true})
-        checkMove(NIn)
+      setMove(NIn)
+      setfireball({ "count": (JSON.parse(sessionStorage.fireballs).count -1),"placed":true})
+      checkMove(NIn)
     }
   }
 
+  async function endGame() {
+    await WORDS_API.post('endGame', {
+      boardID: sessionStorage.board_id
+    })
+    .then((response) => {
+      window.location.href = '/lobby'
+    })
+    .catch((response) => alert(response))
+  }
+
+  function checkExistingMove(){
+    for (let i=0; i<move.length;i++){
+      if (move[i]!=='.'){
+        return false;
+      }
+    }
+    return true;
+  }
+
   return (
+    <>
     <div className='game'>
       <DndProvider backend={HTML5Backend}>
-        <TopBanner name={users[1].username} />
+        <TopBanner name={users[1].username} active={!isActive} />
         <div className='boards'>
+            
           <div className='leftboard'>
             <MainBoard moves={move} updateGame={updateGame} letters={board} />
           </div>
           <div className='rightboard'>
             <SecondaryBoard worms={worms} />
+            {!winner ?
+            <>
             <FireballCounter count={fireball.count} />
-                      <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
+            <FireballLaunch moveable={checkExistingMove()} updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
-              <MakeMove makeMove={makeMove} />
+              { legalMove ? <MakeMove makeMove={makeMove} /> : <InvalidMove/>}
               <SwapTray swapTray={swapTray} />
             </div>
+            </>: (winner !== sessionStorage.getItem("username") || users[1].username === "Easy-Bot") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
-
-        <Tray updateGame={updateGame} trayletters={tray} />
-
-        <BottomBanner name={users[0].username} />
+        {!winner ? <Tray moveable={fireball.placed} updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
+        <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
+      
     </div>
+      <Overlay message='test message' active={isActive} />
+      <div onClick={() => { window.location.href = '/lobby' }} id='backbutton'>← Back</div>
+      <div onClick={()=>{getGame()}} id='refreshbutton'>⟳</div>
+    </>
   )
 }
 
