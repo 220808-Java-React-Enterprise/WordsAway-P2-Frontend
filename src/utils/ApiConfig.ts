@@ -1,8 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
+export const URL:string = 'http://wordsaway-env.eba-wbtmdyms.us-east-2.elasticbeanstalk.com/wordsaway'
+//export const URL:string = 'http://localhost:8080/wordsaway'
+
 const WORDS_API = axios.create({
-  // baseURL: 'http://localhost:8080/wordsaway',
-  baseURL: 'http://wordsaway-env.eba-wbtmdyms.us-east-2.elasticbeanstalk.com/wordsaway',
+  baseURL: URL,
   headers: {
     'Content-type': 'application/json'
   }

@@ -14,7 +14,8 @@ import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
 import Overlay from './game/Overlay'
-import { usePromiseTracker } from "react-promise-tracker";
+// import { URL } from '../utils/ApiConfig'
+import { updateVariableDeclarationList } from 'typescript'
 
 const Game = () => {
   const bb: string[] = 
@@ -46,6 +47,7 @@ const Game = () => {
   })
   const [isActive, setActive] = useState(false)
   const [winner, setWinner] = useState<string|null>(null)
+  const [legalMove, setLegalMove] = useState(false)
 
     function waitForTurn(){
         console.log('Wait for turn')
@@ -59,7 +61,7 @@ const Game = () => {
       .then(async (response: AxiosResponse) => {
         let game: Board = response.data
         if (!game.active) {
-          const eventSource = new EventSource(`http://localhost:8080/wordsaway/active?board_id=${board_id}` )
+          const eventSource = new EventSource(`${URL}/active?board_id=${board_id}` )
           eventSource.addEventListener("active", (event) => {
             getGame()
             eventSource.close()
@@ -105,9 +107,10 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
-      //updateState(response.data)
+      setLegalMove(response.data)
     })
     .catch((error) => {
+      setLegalMove(false)
       console.log(error)
     })
   }
@@ -241,7 +244,7 @@ const Game = () => {
             <FireballCounter count={fireball.count} />
             <FireballLaunch updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
-              <MakeMove makeMove={makeMove} />
+              { legalMove ?<MakeMove makeMove={makeMove} /> : <><div className='invalidmove'><div className='center'>Make Move</div></div></> }
               <SwapTray swapTray={swapTray} />
             </div>
             </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
