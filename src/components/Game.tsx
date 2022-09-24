@@ -249,7 +249,7 @@ const Game = () => {
               { legalMove ? <MakeMove makeMove={makeMove} /> : <InvalidMove/>}
               <SwapTray swapTray={swapTray} />
             </div>
-            </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
+            </>: (winner !== sessionStorage.getItem("username") || users[1].username === "Easy-Bot") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
         {!winner ? <Tray updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
