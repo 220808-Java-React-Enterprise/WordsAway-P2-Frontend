@@ -66,6 +66,7 @@ const Game = () => {
             getGame()
             eventSource.close()
           })
+          eventSource.onerror = () => getGame()
         }
         updateState(game)
       })
