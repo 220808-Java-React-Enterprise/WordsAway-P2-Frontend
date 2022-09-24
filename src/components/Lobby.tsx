@@ -29,7 +29,7 @@ const Lobby = () => {
   }
 
   function continueGame(board_id: string) {
-    alert('Board ID: ' + board_id)
+    // alert('Board ID: ' + board_id)
     sessionStorage.setItem('board_id', board_id)
     window.location.href = '/game'
   }
@@ -38,6 +38,7 @@ const Lobby = () => {
     <div id='lobbycontainer'>
       <div id='floatlobby'>
       <h1>CHOOSE YOUR CHALLENGER!</h1>
+      <div id='tablediv'>
       <table>
         <thead>
           <tr>
@@ -62,6 +63,7 @@ const Lobby = () => {
           ))}
         </tbody>
       </table>
+        </div>
       </div>
     </div>
     

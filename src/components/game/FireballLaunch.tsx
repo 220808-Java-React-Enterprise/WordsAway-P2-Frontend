@@ -4,8 +4,6 @@ import Cell from './Cell'
 
 
 type Props = {
-  activate: Function
-  isActive: boolean
   fb: any
   updateGame: Function
 }
@@ -27,17 +25,6 @@ const FireballLaunch = (props: Props) => {
       <div id='fbtray'>
         {fbtile}
       </div>
-      {/* <div onClick={() => props.activate()} className='fblaunch'>
-        <div  className='center'>
-          Launch Fireball
-        </div>
-      </div>
-      <div
-        style={{
-          backgroundColor: props.isActive ? 'red' : 'black'
-        }}
-        className='fireactive'
-      ></div> */}
     </div>
   )
 }
