@@ -40,7 +40,7 @@ const Tile = ({ type, tileletter, position }: { type: string; tileletter: string
     } else if (type === 'fbtile') {
       return (
         <div ref={drag} className='tile'>
-          {tileletter}
+          <div style={{ fontSize: "1.5rem" }}>🔥</div>
         </div>
       )
     } else {
