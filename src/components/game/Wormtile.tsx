@@ -13,6 +13,10 @@ const Wormtile = (props: Props) => {
     return <div style={{ backgroundColor: 'green' }} className='wormtile'>{props.letter.toUpperCase()}</div>
   } else if (props.letter=="@") {
     return <div style={{ backgroundColor: 'red' }} className='wormtile'></div>
+  } else if (props.letter == "*") {
+    return <div style={{ backgroundColor: 'red' }} className='wormtile'>🔥</div>
+  } else if (props.letter == "&") {
+    return <div style={{ backgroundColor: 'black' }} className='wormtile'>🔥</div>
   } else return <div style={{ backgroundColor: 'black' }} className='wormtile'></div>
 
 
