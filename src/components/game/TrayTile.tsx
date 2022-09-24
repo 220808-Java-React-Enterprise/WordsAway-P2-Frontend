@@ -3,7 +3,7 @@ import { ItemTypes } from './Constants'
 import { useDrag } from 'react-dnd'
 
 const TrayTile = ({ letter }: any) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: ItemTypes.TRAYTILE,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging()

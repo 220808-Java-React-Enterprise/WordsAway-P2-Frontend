@@ -18,7 +18,7 @@ const Cell = ({
     dropType = 'moveable'
   }
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [, drop] = useDrop(() => ({
     accept: dropType,
     drop: (item: any) => {
       //(inOb:string, outOb:string, inN:number, outN:number, letter:string)
