@@ -14,6 +14,7 @@ import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
 import Overlay from './game/Overlay'
+import InvalidMove from './game/InvalidMove'
 // import { URL } from '../utils/ApiConfig'
 import { updateVariableDeclarationList } from 'typescript'
 
@@ -245,7 +246,7 @@ const Game = () => {
             <FireballCounter count={fireball.count} />
             <FireballLaunch updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
-              { legalMove ?<MakeMove makeMove={makeMove} /> : <><div className='invalidmove'><div className='center'>Invalid Move</div></div></> }
+              { legalMove ? <MakeMove makeMove={makeMove} /> : <InvalidMove/>}
               <SwapTray swapTray={swapTray} />
             </div>
             </>: winner !== sessionStorage.getItem("username") ? <button onClick={() => endGame()}>End Game</button>:<></>}
