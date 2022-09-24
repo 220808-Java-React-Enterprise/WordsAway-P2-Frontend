@@ -230,12 +230,23 @@ const Game = () => {
     })
     .catch((response) => alert(response))
   }
+
+  function checkExistingMove(){
+    for (let i=0; i<move.length;i++){
+      if (move[i]!=='.'){
+        return false;
+      }
+    }
+    return true;
+  }
+
   return (
     <>
     <div className='game'>
       <DndProvider backend={HTML5Backend}>
         <TopBanner name={users[1].username} active={!isActive} />
         <div className='boards'>
+            
           <div className='leftboard'>
             <MainBoard moves={move} updateGame={updateGame} letters={board} />
           </div>
@@ -244,7 +255,7 @@ const Game = () => {
             {!winner ?
             <>
             <FireballCounter count={fireball.count} />
-            <FireballLaunch updateGame={updateGame} fb={fireball}/>
+            <FireballLaunch moveable={checkExistingMove()} updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
               { legalMove ? <MakeMove makeMove={makeMove} /> : <InvalidMove/>}
               <SwapTray swapTray={swapTray} />
@@ -252,13 +263,14 @@ const Game = () => {
             </>: (winner !== sessionStorage.getItem("username") || users[1].username === "Easy-Bot") ? <button onClick={() => endGame()}>End Game</button>:<></>}
           </div>
         </div>
-        {!winner ? <Tray updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
+        {!winner ? <Tray moveable={fireball.placed} updateGame={updateGame} trayletters={tray} /> : winner === sessionStorage.getItem("username") ? <h1>YOU WIN</h1>: <h1>You Lose</h1>}
         <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
       
     </div>
       <Overlay message='test message' active={isActive} />
       <div onClick={() => { window.location.href = '/lobby' }} id='backbutton'>← Back</div>
+      <div onClick={()=>{getGame()}} id='refreshbutton'>⟳</div>
     </>
   )
 }
