@@ -6,6 +6,9 @@ import CryptoJS from 'crypto-js'
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [isLogin, setIsLogin] = useState(true)
 
   function updateUsername(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value)
@@ -13,6 +16,18 @@ const Login = () => {
 
   function updatePassword(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
+  }
+
+  function updateEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value)
+  }
+
+  function updateConfirm(event: React.ChangeEvent<HTMLInputElement>) {
+    setConfirm(event.target.value)
+  }
+
+  function toggleLogin(){
+    setIsLogin(!isLogin);
   }
 
   async function login(event: React.FormEvent<HTMLFormElement>) {
@@ -34,14 +49,39 @@ const Login = () => {
     })
     .catch((response) => alert(response))
   }
+
+  async function signup(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    let salt = ''
+    await WORDS_API.get('salt').then((response: AxiosResponse) => {
+      salt = response.data
+    })
+    if (password !== confirm) {
+      alert("Passwords don't match")
+      return
+    }
+    let hash = CryptoJS.HmacSHA512(password, salt).toString()
+    WORDS_API.post('signup', {
+      username: username,
+      email: email,
+      salt: salt,
+      password: hash
+    })
+    .then(() => (window.location.href = 'login'))
+    .catch(() => alert('Error'))
+  }
+
+
   return (
     <>
       <div className='logincontainer'>
         <div className='title'>
           <div>WORDS AWAY</div>
+          
         </div>
 
         <div className='floating'>
+        {isLogin? <>
           <form className='form' onSubmit={login}>
             <input type='text' placeholder='Username' onChange={updateUsername} />
             <br />
@@ -49,7 +89,26 @@ const Login = () => {
             <br />
             <button type='submit'>Login</button>
           </form>
-        </div>
+          <button onClick={toggleLogin}>Sign Up</button>
+          </>
+        
+      : 
+      <div>
+      <form onSubmit={signup}>
+        <input type='text' placeholder='Username' autoComplete='username' onChange={updateUsername} />
+        <br />
+        <input type='text' placeholder='Email' autoComplete='email' onChange={updateEmail} />
+        <br />
+        <input type='password' placeholder='Password' autoComplete='new-password' onChange={updatePassword} />
+        <br />
+        <input type='password' placeholder='Confirm Password' autoComplete='new-password' onChange={updateConfirm} />
+        <br />
+        <button type='submit'>Signup</button>
+      </form>
+      <button onClick={toggleLogin}>Login</button>
+    </div>
+      }
+      </div>
       </div>
     </>
   )
