@@ -142,6 +142,7 @@ const Game = () => {
     })
     .then(async (response: AxiosResponse) => {
       console.log(response.data)
+
       getGame()
     })
     .catch((error) => {
@@ -224,7 +225,6 @@ const Game = () => {
     })
     .catch((response) => alert(response))
   }
-  console.log(isActive)
   return (
     <>
     <div className='game'>
