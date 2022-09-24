@@ -27,7 +27,7 @@ const Login = () => {
       password: hash
     })
     .then((response) => {
-      alert(response.headers.authorization)
+      // alert(response.headers.authorization)
       sessionStorage.setItem('token', response.headers.authorization)
       sessionStorage.setItem('username', username)
       axios.defaults.headers.common.Authorization = response.headers.authorization

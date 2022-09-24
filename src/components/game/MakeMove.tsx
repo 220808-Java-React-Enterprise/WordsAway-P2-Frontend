@@ -6,9 +6,9 @@ type Props = {
 
 const MakeMove = (props: Props) => {
   return (
-    <div onClick={() => props.makeMove()} className='makemove'>
+    <button onClick={() => props.makeMove()} className='makemove'>
       <div className='center'>Make Move</div>
-    </div>
+    </button>
   )
 }
 

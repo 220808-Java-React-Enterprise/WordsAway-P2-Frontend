@@ -13,6 +13,8 @@ import WORDS_API from '../utils/ApiConfig'
 import { AxiosResponse } from 'axios'
 import { Board } from '../types/Board.type'
 import SwapTray from './game/SwapTray'
+import Overlay from './game/Overlay'
+import { usePromiseTracker } from "react-promise-tracker";
 
 const Game = () => {
   const bb: string[] = 
@@ -48,8 +50,7 @@ const Game = () => {
     function waitForTurn(){
         console.log('Wait for turn')
     }
-
-  const [fireactive, setfireactive] = useState(false)
+    
   async function getGame() {
     let board_id = sessionStorage.getItem('board_id')
     if (board_id == null) window.location.href = '/lobby'
@@ -64,7 +65,6 @@ const Game = () => {
             eventSource.close()
           })
         }
-        game.winner = "Not me."
         updateState(game)
       })
       .catch(() => (window.location.href = '/login'))
@@ -87,19 +87,11 @@ const Game = () => {
   }
 
   useEffect(() => {
+    sessionStorage.setItem('fireballs', JSON.stringify(fireball))
     sessionStorage.setItem('board', JSON.stringify(board))
     sessionStorage.setItem('move', JSON.stringify(move))
     sessionStorage.setItem('tray', JSON.stringify(tray))
   })
-
-  function activateFire() {
-    if (fireactive) {
-      console.log('Fireball active')
-    } else {
-      console.log('Fireball inctive')
-    }
-    setfireactive(!fireactive)
-  }
 
   function checkMove(themove: string[]) {
     console.log(themove)
@@ -122,6 +114,7 @@ const Game = () => {
 
   function makeMove() {
     console.log('makemove')
+    setActive(false)
     WORDS_API.post('makeMove', {
       boardID: sessionStorage.board_id,
       layout: move,
@@ -134,12 +127,14 @@ const Game = () => {
     })
     .catch((error) => {
       console.log(error)
+      setActive(true)
     })
     waitForTurn()
   }
 
   function swapTray() {
     console.log('makemove')
+    setActive(false)
     WORDS_API.post('makeMove', {
       boardID: sessionStorage.board_id,
       layout: bb,
@@ -151,6 +146,7 @@ const Game = () => {
     })
     .catch((error) => {
       console.log(error)
+      setActive(true)
     })
     waitForTurn()
   }
@@ -205,17 +201,16 @@ const Game = () => {
 
       setTray(NIn)
     } else if (outOb === 'fbtile' && inOb === 'empty') {
-        console.log('Working')
+      console.log('Working')
 
-        OIn = JSON.parse(sessionStorage.move)
+      OIn = JSON.parse(sessionStorage.move)
 
-        NIn = [...OIn]
-        NIn[inN] = "*"
+      NIn = [...OIn]
+      NIn[inN] = "*"
 
-        setMove(NIn)
-        
-        setfireball({"count":fireball.count-1,"placed":true})
-        checkMove(NIn)
+      setMove(NIn)
+      setfireball({ "count": (JSON.parse(sessionStorage.fireballs).count -1),"placed":true})
+      checkMove(NIn)
     }
   }
 
@@ -229,8 +224,9 @@ const Game = () => {
     })
     .catch((response) => alert(response))
   }
-
+  console.log(isActive)
   return (
+    <>
     <div className='game'>
       <DndProvider backend={HTML5Backend}>
         <TopBanner name={users[1].username} active={!isActive} />
@@ -243,7 +239,7 @@ const Game = () => {
             {!winner ?
             <>
             <FireballCounter count={fireball.count} />
-            <FireballLaunch updateGame={updateGame} fb={fireball} isActive={fireactive} activate={activateFire} />
+            <FireballLaunch updateGame={updateGame} fb={fireball}/>
             <div className='movebar'>
               <MakeMove makeMove={makeMove} />
               <SwapTray swapTray={swapTray} />
@@ -256,7 +252,10 @@ const Game = () => {
 
         <BottomBanner name={users[0].username} active={isActive} />
       </DndProvider>
+      
     </div>
+      <Overlay message='test message' active={isActive} />
+    </>
   )
 }
 
