@@ -1,46 +1,126 @@
-# Getting Started with Create React App
+# WordsAway-P2-Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a href="https://github.com/220808-Java-React-Enterprise/WordsAway-P2-Backend">Backend</a>
 
-## Available Scripts
+## Team Members
+- Chris Waters (Lead)
+- Nathan Gilbert (Frontend)
+- Nicholas Fielder (Frontend)
+- Robert James (Backend)
 
-In the project directory, you can run:
+## Index
+- Proposal
+- Features
+- Rules
+- Technologies
+- MVP
+- Stretch Goals
+- API
+- ERD
+- Contributors
 
-### `npm start`
+### Proposal
+Words Away is a web based game combining the mechanics of Battleship and Scrabble. 
+This game will use a anagram API for checking words and determining possible words for computer players. 
+Players will start a game by challenging another user or bot. On their turn a player can place either a 
+word or a fireball. All instances of 2 or more letters in a grid must be valid words. A player receives a fireball 
+for each new cross word that they make. The first player to place letters in every worm cell of their opponent's 
+grid wins.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Features
+ - Players can register with a username, email, and password.
+ - Players will be able to start a game with a CPU.
+ - Players are able to start a game with another user
+ - Each player has a “tray” of 7 letters that they can make words from.
+ - Each time a letter is played, a new letter is drawn to replace it.
+ - A player can skip their turn to shuffle their letters back in and receive 7 new letters.
+ - A player can play a fireball if they have one instead of a word.
+ - Once all the opponent’s worms have been destroyed, the remaining player is the winner.
+ - Letters will have a rarity value.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Rules
 
-### `npm test`
+![Rules](src/main/resources/rules.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Game Link
+<a href="http://words-away.s3-website.us-east-2.amazonaws.com">Words Away</a>
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tech Stack
+#### Backend
+- Java 8
+- Spring Boot
+- JWT
+- Maven
+- JUnit
+- Mockito
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Frontend
+- HTML/Typescript
+- React
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Hosting
+- Anagramica
+- PostgreSQL
+- AWS Elastic Beanstalk
+- AWS S3 Bucket
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### MVP
+ - User signup
+ - A game can be instantiated against a CPU when the player is ready.
+ - A game can be instantiated against another user when a player is ready.
+ - During Game...
+   - Player can attempt a move using letters from tray.
+   - Server will check if move is legal. 
+     - If so, log move, update game state, update player tray. 
+     - If not, prompt player to try again.
+   - Game can be marked as completed if all worms for a player are destroyed.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Stretch Goals
+ - User profile/leaderboard
+ - AI difficulty options.
+ - Allow user to place worms
+ - Notify user of destroyed worm
+ - Update appearance of webpage
+ - Player Communication
+ - Notify user of turn
+ - Profile Viewing
+ - Tutorial
+ - Mobile Support
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### API Functionality
+ - API will reference external API to check player move validity.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+### ERD
+![ERD](src/main/resources/ERD.png)
+
+### Contributors
+ - Chris Waters
+   - Backend user Signup/Login
+   - Majority of Game functionality
+   - API Interaction
+   - DB Interaction
+   - Deployment to server
+   - Unit Testing
+ ####
+ - Nathan Gilbert
+   - Frontend user Signup/Login
+   - Frontend password hashing
+   - Frontend Asynchronous Updating
+ ####
+ - Nicholas Fielder
+   - Frontend user interaction with game
+   - Frontend challenger screen
+   - Frontend Styling
+ ####
+ - Robert James
+   - Backend AI
+   - Some Game Functionality
+   - API Interaction
+   - Unit Testing
+   - ReadMe
