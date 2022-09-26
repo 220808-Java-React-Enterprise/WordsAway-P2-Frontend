@@ -1,4 +1,4 @@
-# WordsAway-P2-Backend
+# WordsAway-P2-Frontend
 
 <a href="https://github.com/220808-Java-React-Enterprise/WordsAway-P2-Backend">Backend</a>
 
@@ -40,7 +40,7 @@ grid wins.
 
 ### Rules
 
-![Rules](src/main/resources/rules.png)
+![Rules](https://github.com/220808-Java-React-Enterprise/WordsAway-P2-Backend/raw/main/src/main/resources/rules.png)
 
 ### Game Link
 <a href="http://words-away.s3-website.us-east-2.amazonaws.com">Words Away</a>
@@ -97,7 +97,7 @@ grid wins.
 
 
 ### ERD
-![ERD](src/main/resources/ERD.png)
+![ERD](https://github.com/220808-Java-React-Enterprise/WordsAway-P2-Backend/raw/main/src/main/resources/ERD.png)
 
 ### Contributors
  - Chris Waters
